@@ -1,23 +1,30 @@
+import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:get_it/get_it.dart';
 import 'package:shared_preferences/shared_preferences.dart';
+import 'package:taskly/features/tasks/data/datasource/task_category_remote_data_source_firebase.dart';
 import 'package:taskly/features/theme/data/datasource/theme_local_datasource.dart';
 import 'package:taskly/features/theme/data/repositories/theme_repository_impl.dart';
-import 'package:taskly/features/theme/domain/repositories/theme_repository.dart';
 import 'package:taskly/features/theme/domain/usecases/get_theme_use_case.dart';
 import 'package:taskly/features/theme/domain/usecases/save_theme_use_case.dart';
 import 'package:taskly/features/theme/presentation/providers/theme_notifier.dart';
 
 var getIt = GetIt.instance;
 
-Future<void> init() async{
-  getIt.registerSingleton(await SharedPreferences.getInstance());
+Future<void> setupLocator() async{
 
-  getIt.registerSingleton(ThemeLocalDatasource(sharedPreferences: getIt()));
+  getIt.registerSingleton<SharedPreferences>(await SharedPreferences.getInstance());
+  getIt.registerSingleton<FirebaseFirestore>(FirebaseFirestore.instance);
 
-  getIt.registerSingleton<ThemeRepository>(ThemeRepositoryImpl(themeLocalDatasource: getIt()));
+  // Tasks
+  getIt.registerSingleton<TaskCategoryRemoteDataSourceFirebase>(TaskCategoryRemoteDataSourceFirebase(firestore: getIt<FirebaseFirestore>()));
 
-  getIt.registerSingleton(GetThemeUseCase(themeRepository: getIt()));
-  getIt.registerSingleton(SaveThemeUseCase(themeRepository: getIt()));
+  // Themes
+  getIt.registerSingleton<ThemeLocalDatasource>(ThemeLocalDatasource(sharedPreferences: getIt<SharedPreferences>()));
 
-  getIt.registerFactory(() => ThemeNotifier(getThemeUseCase: getIt(), saveThemeUseCase: getIt()),);
+  getIt.registerSingleton<ThemeRepositoryImpl>(ThemeRepositoryImpl(themeLocalDatasource: getIt<ThemeLocalDatasource>()));
+
+  getIt.registerSingleton<GetThemeUseCase>(GetThemeUseCase(themeRepository: getIt<ThemeRepositoryImpl>()));
+  getIt.registerSingleton<SaveThemeUseCase>(SaveThemeUseCase(themeRepository: getIt<ThemeRepositoryImpl>()));
+
+  getIt.registerFactory<ThemeNotifier>(() => ThemeNotifier(getThemeUseCase: getIt<GetThemeUseCase>(), saveThemeUseCase: getIt<SaveThemeUseCase>()),);
 }

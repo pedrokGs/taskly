@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:taskly/core/theme/app_colors.dart';
+
+import 'app_colors.dart';
 
 class AppTheme {
   static ThemeData getTheme(bool isDark) {
