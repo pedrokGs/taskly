@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:firebase_core/firebase_core.dart';
 import 'package:taskly/features/tasks/data/datasource/task_category_remote_datasource.dart';
 import 'package:taskly/features/tasks/data/models/task_category_model.dart';
 
@@ -13,10 +12,12 @@ class TaskCategoryRemoteDataSourceFirebase implements TaskCategoryRemoteDataSour
   @override
   Future<TaskCategoryModel> createTaskCategory(TaskCategoryModel taskCategory) {
     try{
-
+      firestore.collection("users/");
     } catch(e){
       // TODO: Tratamento de erro
     }
+
+    throw UnimplementedError();
   }
 
   @override
