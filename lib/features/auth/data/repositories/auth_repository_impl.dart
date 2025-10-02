@@ -17,7 +17,7 @@ class AuthRepositoryImpl implements AuthRepository {
 
   @override
   Stream<AuthUserEntity?> get authUser => remoteDataSource.authUser.map((user) {
-    if(user == null) return null;
+    if(user == null) return AuthUserEntity.empty;
     return AuthUserEntity(uid: user.uid, email: user.email);
   },);
 

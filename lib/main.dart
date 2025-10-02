@@ -2,28 +2,47 @@ import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:go_router/go_router.dart';
+import 'package:taskly/common/screens/error_screen.dart';
+import 'package:taskly/common/screens/loading_screen.dart';
 import 'package:taskly/core/get_it/get_it.dart';
-import 'package:taskly/features/home/presentation/screens/home_page.dart';
 import 'package:taskly/features/theme/presentation/providers/theme_provider.dart';
 
 import 'core/configs/firebase_options_dev.dart' as dev;
 import 'core/configs/firebase_options_prod.dart' as prod;
+import 'features/auth/presentation/screens/sign_in_screen.dart';
 
-void main() async{
+final _router = GoRouter(
+  initialLocation: '/login',
+  // redirect
+  routes: [
+    GoRoute(
+      path: '/error',
+      builder: (context, state) {
+        final errorMessage =
+            state.uri.queryParameters['errorMessage'] ?? 'Erro desconhecido';
+        return ErrorScreen(errorMessage: errorMessage);
+      },
+    ),
+    GoRoute(path: '/loading', builder: (context, state) => LoadingScreen()),
+    GoRoute(path: '/login', builder: (context, state) => SignInScreen()),
+  ],
+);
+
+void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   bool isProd = bool.fromEnvironment("darm.vm.product");
 
   await Firebase.initializeApp(
-    options: isProd ? prod.DefaultFirebaseOptions.currentPlatform
+    options: isProd
+        ? prod.DefaultFirebaseOptions.currentPlatform
         : dev.DefaultFirebaseOptions.currentPlatform,
     name: "Taskly",
   );
 
   await setupLocator();
 
-  runApp(
-    ProviderScope(child: TasklyApp()),
-  );
+  runApp(ProviderScope(child: TasklyApp()));
 }
 
 class TasklyApp extends ConsumerWidget {
@@ -34,23 +53,17 @@ class TasklyApp extends ConsumerWidget {
     final themeState = ref.watch(themeNotifierProvider);
 
     return themeState.when(
-      data: (themeMode) => MaterialApp(
+      data: (themeMode) => MaterialApp.router(
         title: 'Taskly',
         theme: ThemeData.light(),
         darkTheme: ThemeData.dark(),
         themeMode: themeMode,
-        home: const HomePage(),
+        routerConfig: _router,
       ),
-      loading: () => const MaterialApp(
-        home: Scaffold(
-          body: Center(child: CircularProgressIndicator()),
-        ),
-      ),
-      error: (e, st) => MaterialApp(
-        home: Scaffold(
-          body: Center(child: Text('Erro ao carregar tema')),
-        ),
-      ),
+      loading: () =>
+          MaterialApp.router(title: 'Taskly', routerConfig: _router),
+      error: (error, stacktrace) =>
+          MaterialApp.router(title: 'Taskly', routerConfig: _router),
     );
   }
 }

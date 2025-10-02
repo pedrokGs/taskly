@@ -1,8 +1,9 @@
+import 'package:equatable/equatable.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:taskly/features/auth/domain/entities/auth_user_entity.dart';
 import 'package:taskly/features/auth/domain/exceptions/user_is_null_exception.dart';
 
-class AuthUserModel {
+class AuthUserModel extends Equatable{
   final String uid;
   final String email;
 
@@ -32,6 +33,10 @@ class AuthUserModel {
     );
   }
 
+  factory AuthUserModel.fromFirebaseAuthUser(User user){
+    return AuthUserModel(uid: user.uid, email: user.email ?? "");
+  }
+
   Map<String, dynamic> toJson() {
     return {"uid": uid, "email": email};
   }
@@ -39,4 +44,7 @@ class AuthUserModel {
   AuthUserEntity toEntity(){
     return AuthUserEntity(uid: uid, email: email);
   }
+
+  @override
+  List<Object?> get props => [uid, email];
 }
