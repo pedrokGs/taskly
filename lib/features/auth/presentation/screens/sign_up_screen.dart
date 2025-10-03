@@ -1,41 +1,44 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
-import 'package:taskly/features/auth/domain/exceptions/invalid_credentials_exception.dart';
-import 'package:taskly/features/auth/domain/exceptions/user_not_found_exception.dart';
-import 'package:taskly/features/auth/presentation/providers/sign_in_use_case_provider.dart';
+import 'package:taskly/features/auth/domain/exceptions/email_already_in_use_exception.dart';
+import 'package:taskly/features/auth/presentation/providers/sign_up_use_case_provider.dart';
 import 'package:taskly/features/auth/presentation/widgets/custom_form_text_field.dart';
 import 'package:taskly/features/auth/presentation/widgets/submit_form_button.dart';
 
-class SignInScreen extends ConsumerWidget {
-  const SignInScreen({super.key});
+class SignUpScreen extends ConsumerWidget {
+  const SignUpScreen({super.key});
 
   @override
   Widget build(BuildContext context, WidgetRef ref) {
-    final signInUseCase = ref.watch(signInUseCaseProvider);
+    final signUpUseCase = ref.watch(signUpUseCaseProvider);
     final formKey = GlobalKey<FormState>();
 
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
+    final confirmaSenhaController = TextEditingController();
 
-    Future<void>? signIn() async {
+    Future<void>? signUp() async {
       if (formKey.currentState!.validate()) {
+        if (!(passwordController.text.trim() ==
+            passwordController.text.trim())) {
+          ScaffoldMessenger.of(
+            context,
+          ).showSnackBar(SnackBar(content: Text("As senhas não coincidem")));
+        }
+
         try {
-            await signInUseCase.call(
+            await signUpUseCase.call(
             email: emailController.text.trim(),
             password: passwordController.text.trim(),
           );
 
           context.go("/home");
 
-        } on InvalidCredentialsException {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text("Usuário ou senha incorretos")),
-          );
-        } on UserNotFoundException {
+        } on EmailAlreadyInUseException {
           ScaffoldMessenger.of(
             context,
-          ).showSnackBar(SnackBar(content: Text("Usuário não encontrado")));
+          ).showSnackBar(SnackBar(content: Text("Este email já está sendo utilizado")));
         } on Exception {
           ScaffoldMessenger.of(
             context,
@@ -89,10 +92,31 @@ class SignInScreen extends ConsumerWidget {
                   return null;
                 },
               ),
+
               const SizedBox(height: 48),
-              SubmitFormButton(onPressed: () async => await signIn() , child: Text("Entrar")),
+              CustomFormTextField(
+                controller: confirmaSenhaController,
+                isPassword: true,
+                labelText: "Confirmar Senha",
+                icon: Icon(Icons.password),
+                validator: (value) {
+                  if (value == null || value.trim().isEmpty) {
+                    return 'Campo obrigatório';
+                  }
+                  if (value.trim().length < 6) {
+                    return 'Senha muito curta';
+                  }
+                  return null;
+                },
+              ),
+
+              const SizedBox(height: 48),
+              SubmitFormButton(
+                onPressed: () async => await signUp(),
+                child: Text("Cadastrar"),
+              ),
               const SizedBox(height: 24,),
-              TextButton(onPressed: () => context.go("/signUp"), child: Text("Não possuo uma conta"))
+              TextButton(onPressed: () => context.go("/signIn"), child: Text("Já tenho uma conta"))
             ],
           ),
         ),

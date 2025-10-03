@@ -1,5 +1,4 @@
 import 'package:firebase_core/firebase_core.dart';
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
@@ -11,9 +10,10 @@ import 'package:taskly/features/theme/presentation/providers/theme_provider.dart
 import 'core/configs/firebase_options_dev.dart' as dev;
 import 'core/configs/firebase_options_prod.dart' as prod;
 import 'features/auth/presentation/screens/sign_in_screen.dart';
+import 'features/auth/presentation/screens/sign_up_screen.dart';
 
 final _router = GoRouter(
-  initialLocation: '/login',
+  initialLocation: '/signIn',
   // redirect
   routes: [
     GoRoute(
@@ -25,7 +25,8 @@ final _router = GoRouter(
       },
     ),
     GoRoute(path: '/loading', builder: (context, state) => LoadingScreen()),
-    GoRoute(path: '/login', builder: (context, state) => SignInScreen()),
+    GoRoute(path: '/signIn', builder: (context, state) => SignInScreen()),
+    GoRoute(path: '/signUp', builder: (context, state) => SignUpScreen()),
   ],
 );
 
