@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import '../../../theme/presentation/providers/theme_provider.dart';
+import 'package:taskly/features/theme/presentation/providers/theme_notifier.dart';
 import '../../../theme/presentation/widgets/light_mode_switch.dart';
 
 class HomePage extends ConsumerWidget {
