@@ -1,21 +1,22 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:taskly/core/dependencies_injector/riverpod.dart';
 
 import '../../domain/entities/theme_entity.dart';
 import '../../domain/usecases/get_theme_use_case.dart';
 import '../../domain/usecases/save_theme_use_case.dart';
 
-class ThemeNotifier extends AsyncNotifier<ThemeMode> {
-  final GetThemeUseCase getThemeUseCase;
-  final SaveThemeUseCase saveThemeUseCase;
+final themeNotifierProvider = AsyncNotifierProvider<ThemeNotifier, ThemeMode>(() => ThemeNotifier.new(),);
 
-  ThemeNotifier({
-    required this.getThemeUseCase,
-    required this.saveThemeUseCase,
-  });
+class ThemeNotifier extends AsyncNotifier<ThemeMode> {
+  late final GetThemeUseCase getThemeUseCase;
+  late final SaveThemeUseCase saveThemeUseCase;
 
   @override
   Future<ThemeMode> build() async {
+    getThemeUseCase = ref.watch(getThemeUseCaseProvider);
+    saveThemeUseCase = ref.watch(saveThemeUseCaseProvider);
+
     final themeEntity = await getThemeUseCase();
     return _mapEntityToThemeMode(themeEntity);
   }
