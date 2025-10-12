@@ -19,9 +19,9 @@ class TaskCategoryModel {
     Timestamp? createdAt,
   }) : createdAt = createdAt ?? Timestamp.now();
 
-  factory TaskCategoryModel.fromMap(Map<String, dynamic> map, String? id) {
+  factory TaskCategoryModel.fromMap(Map<String, dynamic> map) {
     return TaskCategoryModel(
-      id: id,
+      id: map["id"] ?? '',
       name: map['name'] ?? '',
       isDefault: map['isDefault'] ?? false,
       color: map['color'],

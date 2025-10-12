@@ -37,7 +37,7 @@ class TaskModel {
       taskDifficulty: TaskDifficulty.values[map['taskDifficulty'] ?? 0],
       taskType: TaskType.values[map['taskType'] ?? 0],
       category: map['category'] != null
-          ? TaskCategoryModel.fromMap(map['category'], null)
+          ? TaskCategoryModel.fromMap(map['category'])
           : null,
       iconDataModel: map['iconDataModel'] != null
           ? IconDataModel.fromMap(map['iconDataModel'])
