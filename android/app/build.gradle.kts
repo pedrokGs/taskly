@@ -9,22 +9,21 @@ plugins {
 }
 
 android {
-    flavorDimensions "env"
+    flavorDimensions += "env"
     productFlavors{
-        dev{
-            dimension "env"
-            aplicationId "com.github.pedrokgs.taskly.dev"
-            versionNameSuffix "-dev"
+        create("dev") {
+            dimension = "env"
+            applicationId = "com.github.pedrokgs.taskly.dev"
+            versionNameSuffix = "-dev"
         }
-        prod{
-            dimension "env"
-            applicationId "com.github.pedrokgs.taskly"
-            versionNameSuffix "-prod"
+        create("prod"){
+            dimension = "env"
+            applicationId = "com.github.pedrokgs.taskly"
+            versionNameSuffix = "-prod"
         }
     }
 
     namespace = "com.github.pedrokgs.taskly"
-    manifestPlaceholders = [applicationName: "io.flutter.app.FlutterApplication"]
     compileSdk = flutter.compileSdkVersion
     ndkVersion = flutter.ndkVersion
 
@@ -46,6 +45,7 @@ android {
         targetSdk = flutter.targetSdkVersion
         versionCode = flutter.versionCode
         versionName = flutter.versionName
+        manifestPlaceholders["applicationName"] = "io.flutter.app.FlutterApplication"
     }
 
     buildTypes {
