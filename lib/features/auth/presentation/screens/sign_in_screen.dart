@@ -18,21 +18,23 @@ class SignInScreen extends ConsumerWidget {
     final emailController = TextEditingController();
     final passwordController = TextEditingController();
 
+    ref.listen<SignInState>(signInNotifierProvider, (previous, next) {
+      if (next.success) {
+        context.go('/home');
+      }
+      if (next.errorMessage != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(next.errorMessage!)),
+        );
+      }
+    });
+
     Future<void> signIn() async {
       if (formKey.currentState!.validate()) {
-
         await notifier.signIn(
           emailController.text.trim(),
           passwordController.text.trim(),
         );
-
-        if (state.success) {
-          context.go('/home');
-        } else if (state.errorMessage != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errorMessage!)),
-          );
-        }
       }
     }
 

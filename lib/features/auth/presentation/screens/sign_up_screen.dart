@@ -18,9 +18,20 @@ class SignUpScreen extends ConsumerWidget {
     final passwordController = TextEditingController();
     final confirmaSenhaController = TextEditingController();
 
+    ref.listen<SignUpState>(signUpNotifierProvider, (previous, next) {
+      if (next.success) {
+        context.go('/home');
+      }
+      if (next.errorMessage != null) {
+        ScaffoldMessenger.of(context).showSnackBar(
+          SnackBar(content: Text(next.errorMessage!)),
+        );
+      }
+    });
+
     Future<void> signUp() async {
       if (formKey.currentState!.validate()) {
-        if(confirmaSenhaController.text.trim() == passwordController.text.trim()) {
+        if(confirmaSenhaController.text.trim() != passwordController.text.trim()) {
           ScaffoldMessenger.of(context).showSnackBar(SnackBar(content: Text("Campos tem que ser iguais")));
           return;
         }
@@ -28,14 +39,6 @@ class SignUpScreen extends ConsumerWidget {
           emailController.text.trim(),
           passwordController.text.trim(),
         );
-
-        if (state.success) {
-          context.go('/home');
-        } else if (state.errorMessage != null) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(content: Text(state.errorMessage!)),
-          );
-        }
       }
     }
 

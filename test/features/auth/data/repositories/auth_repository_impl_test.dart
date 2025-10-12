@@ -97,7 +97,6 @@ void main() {
       await authRepository.signOut();
 
       verify(mockAuthRemoteDataSourceFirebase.signOut()).called(1);
-
     },);
 
 
