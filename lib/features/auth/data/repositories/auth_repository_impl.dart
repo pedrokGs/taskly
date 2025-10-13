@@ -22,6 +22,13 @@ class AuthRepositoryImpl implements AuthRepository {
   },);
 
   @override
+  AuthUserEntity? get currentUser {
+    final user = remoteDataSource.currentUser;
+    if(user == null) return AuthUserEntity.empty;
+    return AuthUserEntity(uid: user.uid, email: user.email);
+  }
+
+  @override
   Future<AuthUserEntity> signInWithEmailAndPassword({required String email, required String password}) async {
     try {
       final userModel = await remoteDataSource.signInWithEmailAndPassword(email: email, password: password);

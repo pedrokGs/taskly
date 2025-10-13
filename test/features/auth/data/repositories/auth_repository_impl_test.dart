@@ -24,6 +24,24 @@ void main() {
   const password = 'password12345';
   const authUserModel = AuthUserModel(uid: '123', email: 'test@test.com');
 
+  group('currentUser', () {
+    test('returns AuthUser.empty when remoteDataSource.currentUser returns null', () {
+      when(mockAuthRemoteDataSourceFirebase.currentUser).thenReturn(null);
+
+      final result = authRepository.currentUser;
+
+      expect(result, AuthUserEntity.empty);
+    },);
+
+    test('returns an AuthUserEntity when remoteDataSource.currentUser returns non-null value', () {
+      when(mockAuthRemoteDataSourceFirebase.currentUser).thenReturn(authUserModel);
+
+      final result = authRepository.currentUser;
+
+      expect(result, authUserModel.toEntity());
+    },);
+  },);
+
   group('authUser', () {
     test('emits AuthUser.empty when remoteDataSource.authUser emits null', () async {
       when(mockAuthRemoteDataSourceFirebase.authUser).thenAnswer((_) => Stream.value(null));
