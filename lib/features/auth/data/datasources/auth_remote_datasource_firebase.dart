@@ -1,6 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:taskly/features/auth/data/datasources/auth_remote_datasource.dart';
-import 'package:taskly/features/auth/domain/entities/auth_user_entity.dart';
 
 import '../models/auth_user_model.dart';
 

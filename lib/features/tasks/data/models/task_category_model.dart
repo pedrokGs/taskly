@@ -1,4 +1,5 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:taskly/features/tasks/domain/entities/task_category_entity.dart';
 
 import 'icon_data_model.dart';
 
@@ -59,4 +60,19 @@ class TaskCategoryModel {
       createdAt: createdAt ?? this.createdAt,
     );
   }
+
+  TaskCategoryEntity toEntity() {
+    if (id == null || name.isEmpty) {
+      throw StateError("TaskCategoryModel inválido: id ou name ausente");
+    }
+
+    return TaskCategoryEntity(
+      id: id!,
+      name: name,
+      isDefault: isDefault,
+      color: color ?? 0xFF000000,
+      createdAt: createdAt?.toDate() ?? DateTime.now(),
+    );
+  }
+
 }

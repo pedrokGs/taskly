@@ -6,7 +6,7 @@ import '../../domain/entities/theme_entity.dart';
 import '../../domain/usecases/get_theme_use_case.dart';
 import '../../domain/usecases/save_theme_use_case.dart';
 
-final themeNotifierProvider = AsyncNotifierProvider<ThemeNotifier, ThemeMode>(() => ThemeNotifier.new(),);
+final themeNotifierProvider = AsyncNotifierProvider<ThemeNotifier, ThemeMode>(() => ThemeNotifier(),);
 
 class ThemeNotifier extends AsyncNotifier<ThemeMode> {
   late final GetThemeUseCase getThemeUseCase;
