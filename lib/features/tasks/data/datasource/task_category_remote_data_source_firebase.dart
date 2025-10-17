@@ -25,7 +25,6 @@ class TaskCategoryRemoteDataSourceFirebase
   ) async {
     final currentUser = authRepository.currentUser;
     if (currentUser == null) throw DataSourceException(cause: "Usuário não autenticado");
-
     try {
       final docRef = await firestore
           .collection("users/${currentUser.uid}/categories")

@@ -1,6 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:taskly/features/tasks/domain/entities/task_category_entity.dart';
 
+import '../../domain/entities/icon_data_entity.dart';
 import 'icon_data_model.dart';
 
 class TaskCategoryModel {
@@ -33,6 +34,24 @@ class TaskCategoryModel {
     );
   }
 
+  factory TaskCategoryModel.fromEntity(TaskCategoryEntity entity) {
+    return TaskCategoryModel(
+      id: entity.id,
+      name: entity.name,
+      isDefault: entity.isDefault,
+      color: entity.color,
+      createdAt: Timestamp.fromDate(entity.createdAt),
+      iconDataModel: entity.iconDataEntity == null
+          ? null
+          : IconDataModel(
+              iconName: entity.iconDataEntity!.iconName,
+              iconCodePoint: entity.iconDataEntity!.iconCodePoint,
+              iconFontFamily: entity.iconDataEntity!.iconFontFamily,
+              iconFontPackage: entity.iconDataEntity!.iconFontPackage,
+            ),
+    );
+  }
+
   Map<String, dynamic> toMap() {
     return {
       'name': name,
@@ -62,7 +81,7 @@ class TaskCategoryModel {
   }
 
   TaskCategoryEntity toEntity() {
-    if (id == null || name.isEmpty) {
+    if (id == null) {
       throw StateError("TaskCategoryModel inválido: id ou name ausente");
     }
 
@@ -72,7 +91,14 @@ class TaskCategoryModel {
       isDefault: isDefault,
       color: color ?? 0xFF000000,
       createdAt: createdAt?.toDate() ?? DateTime.now(),
+      iconDataEntity: iconDataModel == null
+          ? null
+          : IconDataEntity(
+        iconName: iconDataModel!.iconName,
+        iconCodePoint: iconDataModel!.iconCodePoint,
+        iconFontFamily: iconDataModel!.iconFontFamily,
+        iconFontPackage: iconDataModel!.iconFontPackage,
+      ),
     );
   }
-
 }

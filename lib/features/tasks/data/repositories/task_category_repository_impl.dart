@@ -1,48 +1,68 @@
 import 'package:taskly/features/tasks/data/datasource/task_category_remote_datasource.dart';
+import 'package:taskly/features/tasks/data/models/task_category_model.dart';
 import 'package:taskly/features/tasks/domain/entities/task_category_entity.dart';
-import 'package:taskly/features/tasks/domain/exceptions/generic/data_source_exception.dart';
-import 'package:taskly/features/tasks/domain/exceptions/generic/unknown_data_source_exception.dart';
+import 'package:taskly/features/tasks/domain/exceptions/categories/task_category_not_found_exception.dart';
+import 'package:taskly/features/tasks/domain/exceptions/generic/id_does_not_exist_exception.dart';
 import 'package:taskly/features/tasks/domain/repositories/task_category_repository.dart';
 
-class TaskCategoryRepositoryImpl implements TaskCategoryRepository{
+class TaskCategoryRepositoryImpl implements TaskCategoryRepository {
   final TaskCategoryRemoteDataSource remoteDataSource;
 
   TaskCategoryRepositoryImpl({required this.remoteDataSource});
 
   @override
-  Future<TaskCategoryEntity> addTaskCategory(TaskCategoryEntity taskCategoryEntity) {
-    try{
-          } on DataSourceException catch (e, stack){
-      rethrow;
-    } on UnknownDataSourceException catch (e, stack){
-      rethrow;
-    } on Exception catch(e){
-      rethrow;
+  Future<TaskCategoryEntity> addTaskCategory(
+    TaskCategoryEntity taskCategoryEntity,
+  ) async {
+
+    if(taskCategoryEntity.name.isEmpty){
+      throw ArgumentError();
     }
+
+    // categoryModel entra sem id e volta com id do datasource.
+    final categoryModel = await remoteDataSource.createTaskCategory(
+      TaskCategoryModel.fromEntity(taskCategoryEntity),
+    );
+    final categoryEntity = categoryModel.toEntity();
+    return categoryEntity;
   }
 
   @override
-  Future<void> deleteTaskCategory(TaskCategoryEntity taskCategoryEntity) {
-    // TODO: implement deleteTaskCategory
-    throw UnimplementedError();
+  Future<void> deleteTaskCategory(TaskCategoryEntity taskCategoryEntity) async {
+    if(taskCategoryEntity.id.isEmpty){
+      throw IdDoesNotExistException(cause: 'id is null');
+    }
+
+    await remoteDataSource.deleteTaskCategory(taskCategoryEntity.id);
   }
 
   @override
-  Future<List<TaskCategoryEntity>> getAllTaskCategories() {
-    // TODO: implement getAllTaskCategories
-    throw UnimplementedError();
+  Future<List<TaskCategoryEntity>> getAllTaskCategories() async {
+    final categories = await remoteDataSource.getTaskCategories();
+    return categories.map((e) => e.toEntity()).toList();
   }
 
   @override
-  Future<TaskCategoryEntity> getTaskCategoryById(String id) {
-    // TODO: implement getTaskCategoryById
-    throw UnimplementedError();
+  Future<TaskCategoryEntity> getTaskCategoryById(String id) async {
+    final result = await remoteDataSource.findTaskCategoryById(id);
+    if (result == null) {
+      throw TaskCategoryNotFoundException();
+    }
+    return result.toEntity();
   }
 
   @override
-  Future<TaskCategoryEntity> updateTaskCategory(TaskCategoryEntity taskCategoryEntity) {
-    // TODO: implement updateTaskCategory
-    throw UnimplementedError();
-  }
+  Future<TaskCategoryEntity> updateTaskCategory(
+    TaskCategoryEntity taskCategoryEntity,
+  ) async {
+    if(taskCategoryEntity.id.isEmpty){
+      throw IdDoesNotExistException(cause: 'id is null');
+    }
 
+    final result = await remoteDataSource.updateTaskCategory(
+      TaskCategoryModel.fromEntity(taskCategoryEntity),
+    );
+
+    return result.toEntity();
+  }
 }
