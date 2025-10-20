@@ -28,7 +28,7 @@ class SignInStateNotifier extends Notifier<SignInState>{
       await signInUseCase.call(email: email, password: password);
       state = SignInState(isLoading: false, success: true);
     } on InvalidCredentialsException {
-      state = SignInState(isLoading: false, errorMessage: "Credenciais inválidas");
+      state = SignInState(isLoading: false, errorMessage: "Credenciais inválidas, verifique a senha e o email");
     } on UserNotFoundException {
       state = SignInState(isLoading: false, errorMessage: "Usuário não encontrado");
     } on WrongPasswordException {

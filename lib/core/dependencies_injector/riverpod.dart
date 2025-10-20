@@ -1,5 +1,6 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taskly/features/auth/data/datasources/auth_remote_datasource_firebase.dart';
 import 'package:taskly/features/auth/data/repositories/auth_repository_impl.dart';
@@ -15,7 +16,8 @@ import 'package:taskly/features/theme/domain/usecases/save_theme_use_case.dart';
 
 // Auth
 final firebaseAuthProvider = Provider<FirebaseAuth>((ref) => FirebaseAuth.instance);
-final authRemoteDataSourceProvider = Provider((ref) => AuthRemoteDataSourceFirebase(firebaseAuth: ref.watch(firebaseAuthProvider)),);
+final googleSignInProvider = Provider<GoogleSignIn>((ref) => GoogleSignIn.instance);
+final authRemoteDataSourceProvider = Provider((ref) => AuthRemoteDataSourceFirebase(firebaseAuth: ref.watch(firebaseAuthProvider), googleSignIn: ref.watch(googleSignInProvider)),);
 final authRepositoryProvider = Provider((ref) => AuthRepositoryImpl(remoteDataSource: ref.watch(authRemoteDataSourceProvider)),);
 final signInUseCaseProvider = Provider((ref) => SignInUseCase(authRepository: ref.watch(authRepositoryProvider)),);
 final signUpUseCaseProvider = Provider((ref) => SignUpUseCase(authRepository: ref.watch(authRepositoryProvider)),);
