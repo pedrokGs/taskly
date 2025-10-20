@@ -1,7 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
-import 'package:mockito/mockito.dart';
 import 'package:taskly/features/auth/domain/entities/auth_user_entity.dart';
 import 'package:taskly/features/auth/domain/repositories/auth_repository.dart';
 import 'package:taskly/features/tasks/data/datasource/task_category_remote_data_source_firebase.dart';
