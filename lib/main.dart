@@ -15,9 +15,9 @@ import 'core/configs/firebase_options_prod.dart' as prod;
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
   final SharedPreferences prefs = await SharedPreferences.getInstance();
-  await dotenv.load(fileName: '.env');
+  await dotenv.load(fileName: const String.fromEnvironment('ENV_FILE', defaultValue: '.env'));
 
-  bool isProd = bool.fromEnvironment("darm.vm.product");
+  bool isProd = bool.fromEnvironment("dart.vm.product");
 
   final serverClientId = dotenv.env['GOOGLE_SERVER_CLIENT_ID'];
   await GoogleSignIn.instance.initialize(serverClientId: serverClientId);
