@@ -1,12 +1,14 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:taskly/features/auth/data/datasources/auth_remote_datasource.dart';
 
 import '../models/auth_user_model.dart';
 
 class AuthRemoteDataSourceFirebase implements AuthRemoteDataSource{
   final FirebaseAuth firebaseAuth;
+  final GoogleSignIn? googleSignIn; // TODO: ADICIONAR COMO REQUIRED POSTERIORMENTE
 
-  AuthRemoteDataSourceFirebase({required this.firebaseAuth});
+  AuthRemoteDataSourceFirebase({required this.firebaseAuth, this.googleSignIn});
 
   @override
   AuthUserModel? get currentUser {
@@ -64,6 +66,40 @@ class AuthRemoteDataSourceFirebase implements AuthRemoteDataSource{
 
       return authUser;
     } on FirebaseAuthException catch (_) {
+      rethrow;
+    }
+  }
+
+  @override
+  Future<AuthUserModel> signInWithGoogle() async {
+    try {
+      final GoogleSignInAccount? googleUser = await googleSignIn?.authenticate();
+      if(googleUser == null) {
+        throw GoogleSignInException(code: GoogleSignInExceptionCode.canceled);
+      }
+      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
+      final AuthCredential credential = GoogleAuthProvider.credential(
+        idToken: googleAuth.idToken,
+      );
+
+      final userCredential = await firebaseAuth.signInWithCredential(credential);
+      return AuthUserModel.fromCredential(userCredential);
+    } on FirebaseAuthException catch (_) {
+      rethrow;
+    } on GoogleSignInException catch(_){
+      rethrow;
+    } catch(_){
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> sendResetPasswordEmail({required String email}) async {
+    try{
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch(_){
+      rethrow;
+    } catch(_){
       rethrow;
     }
   }

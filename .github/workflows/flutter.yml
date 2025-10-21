@@ -21,8 +21,16 @@ jobs:
         with:
           flutter-version: 3.35.3
 
+      - name: Set environment variables
+        run: echo "GOOGLE_SERVER_CLIENT_ID=${{ secrets.GOOGLE_SERVER_CLIENT_ID }}" >> $GITHUB_ENV
+
       - name: Install dependencies
         run: flutter pub get
 
       - name: Run tests
         run: flutter test
+
+      - name: Build APK
+        if: github.ref == 'refs/heads/main'
+        run: flutter build apk --release
+
