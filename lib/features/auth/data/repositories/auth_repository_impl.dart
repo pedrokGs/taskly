@@ -83,5 +83,14 @@ class AuthRepositoryImpl implements AuthRepository {
       throw AuthException(e.toString());
     }
   }
+
+  @override
+  Future<void> sendResetPasswordEmail({required String email}) async {
+    try{
+      await remoteDataSource.sendResetPasswordEmail(email: email);
+    } catch(e){
+      throw AuthException(e.toString());
+    }
+  }
 }
 

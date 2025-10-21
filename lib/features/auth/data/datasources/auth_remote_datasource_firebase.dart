@@ -88,6 +88,19 @@ class AuthRemoteDataSourceFirebase implements AuthRemoteDataSource{
       rethrow;
     } on GoogleSignInException catch(_){
       rethrow;
+    } catch(_){
+      rethrow;
+    }
+  }
+
+  @override
+  Future<void> sendResetPasswordEmail({required String email}) async {
+    try{
+      await firebaseAuth.sendPasswordResetEmail(email: email);
+    } on FirebaseAuthException catch(_){
+      rethrow;
+    } catch(_){
+      rethrow;
     }
   }
 }

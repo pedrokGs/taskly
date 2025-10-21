@@ -94,7 +94,10 @@ class SignInScreen extends ConsumerWidget {
                     ? CircularProgressIndicator()
                     : Text("Entrar"),
               ),
-              const SizedBox(height: 24),
+              TextButton(
+                onPressed: () => context.go("/resetPassword"),
+                child: Text("Esqueci minha senha"),
+              ),
               TextButton(
                 onPressed: () => context.go("/signUp"),
                 child: Text("Não possuo uma conta"),
