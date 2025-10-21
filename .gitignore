@@ -38,6 +38,7 @@ lib/core/configs/firebase_options_dev.dart
 lib/core/configs/firebase_options_prod.dart
 android/app/src/dev/google-services.json
 android/app/src/prod/google-services.json
+.env
 
 # Symbolication related
 app.*.symbols

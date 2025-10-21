@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_signin_button/button_list.dart';
+import 'package:flutter_signin_button/button_view.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taskly/features/auth/presentation/state/sign_in_state.dart';
 import 'package:taskly/features/auth/presentation/widgets/custom_form_text_field.dart';
@@ -23,9 +25,9 @@ class SignInScreen extends ConsumerWidget {
         context.go('/home');
       }
       if (next.errorMessage != null) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(next.errorMessage!)),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(next.errorMessage!)));
       }
     });
 
@@ -36,6 +38,10 @@ class SignInScreen extends ConsumerWidget {
           passwordController.text.trim(),
         );
       }
+    }
+
+    Future<void> signInWithGoogle() async {
+      await notifier.signInWithGoogle();
     }
 
     return Scaffold(
@@ -84,12 +90,27 @@ class SignInScreen extends ConsumerWidget {
               const SizedBox(height: 48),
               SubmitFormButton(
                 onPressed: state.isLoading ? null : () async => await signIn(),
-                child: state.isLoading? CircularProgressIndicator() :Text("Entrar"),
+                child: state.isLoading
+                    ? CircularProgressIndicator()
+                    : Text("Entrar"),
               ),
-              const SizedBox(height: 24),
+              TextButton(
+                onPressed: () => context.go("/resetPassword"),
+                child: Text("Esqueci minha senha"),
+              ),
               TextButton(
                 onPressed: () => context.go("/signUp"),
                 child: Text("Não possuo uma conta"),
+              ),
+
+              SignInButton(
+                Buttons.Google,
+                onPressed: signInWithGoogle,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                text: "Entrar com Google",
+                padding: EdgeInsets.all(4.0),
               ),
             ],
           ),

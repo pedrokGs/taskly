@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:flutter_signin_button/flutter_signin_button.dart';
 import 'package:go_router/go_router.dart';
 import 'package:taskly/features/auth/presentation/state/sign_up_state.dart';
 import 'package:taskly/features/auth/presentation/widgets/custom_form_text_field.dart';
@@ -40,6 +41,10 @@ class SignUpScreen extends ConsumerWidget {
           passwordController.text.trim(),
         );
       }
+    }
+
+    Future<void> signInWithGoogle() async {
+      await notifier.signInWithGoogle();
     }
 
     return Scaffold(
@@ -113,6 +118,16 @@ class SignUpScreen extends ConsumerWidget {
               TextButton(
                 onPressed: () => context.go("/signIn"),
                 child: Text("Já tenho uma conta"),
+              ),
+
+              SignInButton(
+                Buttons.Google,
+                onPressed: signInWithGoogle,
+                shape: RoundedRectangleBorder(
+                  borderRadius: BorderRadius.circular(15),
+                ),
+                text: "Entrar com Google",
+                padding: EdgeInsets.all(4.0),
               ),
             ],
           ),

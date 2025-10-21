@@ -1,59 +1,70 @@
 import 'package:flutter/material.dart';
 
 class AppTextTheme {
-  static TextTheme lightTextTheme = TextTheme(
-    headlineLarge: TextStyle(
-      fontSize: 32,
+  static TextTheme textTheme = TextTheme(
+    titleLarge: TextStyle(
+      fontSize: 36,
+      fontFamily: 'Roboto',
       fontWeight: FontWeight.bold,
-      color: Color(0xFF2C3E50),
+      height: 1.3,
+      letterSpacing: 0.5,
     ),
-    headlineMedium: TextStyle(
+    titleMedium: TextStyle(
       fontSize: 24,
+      fontFamily: 'Roboto',
       fontWeight: FontWeight.w600,
-      color: Color(0xFF2C3E50),
+      height: 1.3,
+      letterSpacing: 0.25,
     ),
-    bodyLarge: TextStyle(
-      fontSize: 16,
-      fontWeight: FontWeight.normal,
-      color: Color(0xFF2C3E50),
+    titleSmall: TextStyle(
+      fontSize: 18,
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w500,
+      height: 1.3,
+      letterSpacing: 0.15,
     ),
-    bodyMedium: TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.normal,
-      color: Color(0xFF7F8C8D),
-    ),
-    labelLarge: TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.w600,
-      color: Color(0xFF4A90E2),
-    ),
-  );
 
-  static TextTheme darkTextTheme = TextTheme(
-    headlineLarge: TextStyle(
-      fontSize: 32,
-      fontWeight: FontWeight.bold,
-      color: Color(0xFFE0E0E0),
+    headlineSmall: TextStyle(
+      fontSize: 16,
+      fontFamily: 'Roboto',
+      fontWeight: FontWeight.w500,
+      height: 1.25,
+      letterSpacing: 0.15,
     ),
-    headlineMedium: TextStyle(
-      fontSize: 24,
-      fontWeight: FontWeight.w600,
-      color: Color(0xFFE0E0E0),
-    ),
+
     bodyLarge: TextStyle(
       fontSize: 16,
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.normal,
-      color: Color(0xFFE0E0E0),
+      height: 1.5,
+      letterSpacing: 0.5,
     ),
     bodyMedium: TextStyle(
       fontSize: 14,
+      fontFamily: 'Open Sans',
       fontWeight: FontWeight.normal,
-      color: Color(0xFF9E9E9E),
+      height: 1.4,
+      letterSpacing: 0.25,
     ),
+    bodySmall: TextStyle(
+      fontSize: 12,
+      fontFamily: 'Open Sans',
+      fontWeight: FontWeight.normal,
+      height: 1.3,
+      letterSpacing: 0.4,
+    ),
+
     labelLarge: TextStyle(
-      fontSize: 14,
-      fontWeight: FontWeight.w600,
-      color: Color(0xFF64B5F6),
+      fontSize: 12,
+      fontWeight: FontWeight.w500,
+      height: 1.2,
+      letterSpacing: 0.5,
+    ),
+    labelSmall: TextStyle(
+      fontSize: 10,
+      fontWeight: FontWeight.w400,
+      height: 1.2,
+      letterSpacing: 0.4,
     ),
   );
 }

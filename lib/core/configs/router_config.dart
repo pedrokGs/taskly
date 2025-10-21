@@ -1,4 +1,5 @@
 import 'package:go_router/go_router.dart';
+import 'package:taskly/features/auth/presentation/screens/password_reset_screen.dart';
 
 import '../../common/screens/error_screen.dart';
 import '../../common/screens/loading_screen.dart';
@@ -20,6 +21,7 @@ class AppRouter{
       GoRoute(path: '/loading', builder: (context, state) => LoadingScreen()),
       GoRoute(path: '/signIn', builder: (context, state) => SignInScreen()),
       GoRoute(path: '/signUp', builder: (context, state) => SignUpScreen()),
+      GoRoute(path: '/resetPassword', builder: (context, state) => PasswordResetScreen(),),
     ],
   );
 }

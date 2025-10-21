@@ -14,14 +14,14 @@ class _SubmitFormButtonState extends State<SubmitFormButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: MediaQuery.of(context).size.height * 0.075,
-      width: MediaQuery.of(context).size.width * 0.5,
+
       child: ElevatedButton(
         onPressed: widget.onPressed,
         style: ElevatedButton.styleFrom(
+          minimumSize: Size(double.infinity, 52),
           backgroundColor: Theme.of(context).colorScheme.primary,
-          foregroundColor: Theme.of(context).colorScheme.onSurface,
-          textStyle: Theme.of(context).textTheme.bodyMedium,
+          foregroundColor: Theme.of(context).colorScheme.surface,
+          textStyle: Theme.of(context).textTheme.labelLarge,
           shape: RoundedRectangleBorder(
             borderRadius: BorderRadius.circular(15.0),
           ),

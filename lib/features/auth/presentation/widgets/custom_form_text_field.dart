@@ -37,6 +37,7 @@ class _CustomFormTextFieldState extends State<CustomFormTextField> {
   @override
   Widget build(BuildContext context) {
     return TextFormField(
+      style: Theme.of(context).textTheme.bodyMedium,
       controller: widget.controller,
       enabled: widget.isEnabled,
       obscureText: obscureText,

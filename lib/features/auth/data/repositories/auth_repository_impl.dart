@@ -1,6 +1,9 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:taskly/features/auth/domain/entities/auth_user_entity.dart';
 import 'package:taskly/features/auth/domain/exceptions/email_already_in_use_exception.dart';
+import 'package:taskly/features/auth/domain/exceptions/invalid_credentials_exception.dart';
+import 'package:taskly/features/auth/domain/exceptions/sign_in_with_google_cancelled_exception.dart';
 import 'package:taskly/features/auth/domain/repositories/auth_repository.dart';
 
 import '../../domain/exceptions/auth_exception.dart';
@@ -38,6 +41,7 @@ class AuthRepositoryImpl implements AuthRepository {
     } on FirebaseAuthException catch (e) {
       if (e.code == 'user-not-found') throw UserNotFoundException();
       if (e.code == 'wrong-password') throw WrongPasswordException();
+      if (e.code == 'invalid-credential') throw InvalidCredentialsException();
       throw AuthException(e.message ?? 'Erro de autenticação');
     }
   }
@@ -62,6 +66,30 @@ class AuthRepositoryImpl implements AuthRepository {
       if(e.code == 'email-already-in-use') throw EmailAlreadyInUseException();
       if(e.code == 'invalid-email') throw InvalidEmailException();
       throw AuthException(e.message ?? 'Erro de autenticação');
+    }
+  }
+
+  @override
+  Future<AuthUserEntity> signInWithGoogle() async {
+    try{
+      final userModel = await remoteDataSource.signInWithGoogle();
+
+      final userEntity = userModel.toEntity();
+      return userEntity;
+    } on FirebaseAuthException catch (e){
+      throw AuthException(e.message ?? 'Erro de autenticação');
+    } on GoogleSignInException catch(e){
+      if(e.code.toString() == 'canceled') throw SignInWithGoogleCancelledException();
+      throw AuthException(e.toString());
+    }
+  }
+
+  @override
+  Future<void> sendResetPasswordEmail({required String email}) async {
+    try{
+      await remoteDataSource.sendResetPasswordEmail(email: email);
+    } catch(e){
+      throw AuthException(e.toString());
     }
   }
 }
