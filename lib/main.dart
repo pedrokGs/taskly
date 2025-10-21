@@ -1,11 +1,12 @@
-import 'package:firebase_auth/firebase_auth.dart';
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_dotenv/flutter_dotenv.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taskly/core/dependencies_injector/riverpod.dart';
-import 'package:taskly/features/home/presentation/screens/home_page.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taskly/core/theme/app_theme.dart';
 import 'common/screens/error_screen.dart';
 import 'common/screens/loading_screen.dart';
 import 'features/theme/presentation/providers/theme_notifier.dart';
@@ -35,9 +36,13 @@ final _router = GoRouter(
 
 void main() async{
   WidgetsFlutterBinding.ensureInitialized();
+  await dotenv.load(fileName: '.env');
   final SharedPreferences prefs = await SharedPreferences.getInstance();
 
   bool isProd = bool.fromEnvironment("darm.vm.product");
+
+  final serverClientId = dotenv.env['GOOGLE_SERVER_CLIENT_ID'];
+  await GoogleSignIn.instance.initialize(serverClientId: serverClientId);
 
   await Firebase.initializeApp(
     options: isProd
@@ -64,8 +69,8 @@ class TasklyApp extends ConsumerWidget {
 
     return MaterialApp.router(
       title: 'Taskly',
-      theme: ThemeData.light(),
-      darkTheme: ThemeData.dark(),
+      theme: AppTheme.getTheme(false),
+      darkTheme: AppTheme.getTheme(true),
       themeMode: themeState.value,
       routerConfig: _router,
     );

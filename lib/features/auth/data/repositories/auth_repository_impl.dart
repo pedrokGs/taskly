@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:taskly/features/auth/domain/entities/auth_user_entity.dart';
 import 'package:taskly/features/auth/domain/exceptions/email_already_in_use_exception.dart';

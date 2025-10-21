@@ -6,6 +6,7 @@ import 'package:taskly/features/auth/data/datasources/auth_remote_datasource_fir
 import 'package:taskly/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:taskly/features/auth/domain/entities/auth_user_entity.dart';
 import 'package:taskly/features/auth/domain/usecases/sign_in_use_case.dart';
+import 'package:taskly/features/auth/domain/usecases/sign_in_with_google_use_case.dart';
 import 'package:taskly/features/auth/domain/usecases/sign_out_use_case.dart';
 import 'package:taskly/features/auth/domain/usecases/sign_up_use_case.dart';
 import 'package:taskly/features/theme/data/datasource/theme_local_datasource.dart';
@@ -22,6 +23,7 @@ final authRepositoryProvider = Provider((ref) => AuthRepositoryImpl(remoteDataSo
 final signInUseCaseProvider = Provider((ref) => SignInUseCase(authRepository: ref.watch(authRepositoryProvider)),);
 final signUpUseCaseProvider = Provider((ref) => SignUpUseCase(authRepository: ref.watch(authRepositoryProvider)),);
 final signOutUseCaseProvider = Provider((ref) => SignOutUseCase(authRepository: ref.watch(authRepositoryProvider)),);
+final signInWithGoogleUseCaseProvider = Provider((ref) => SignInWithGoogleUseCase(authRepository: ref.watch(authRepositoryProvider)),);
 final authUserProvider = StreamProvider<AuthUserEntity?>((ref) => ref.watch(authRepositoryProvider).authUser);
 
 // Theme

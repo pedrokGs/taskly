@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
 import 'package:taskly/core/theme/app_colors.dart';
+import 'package:taskly/core/theme/app_text_themes.dart';
 
 class AppTheme {
   static ThemeData getTheme(bool isDark) {
     return ThemeData(
+      textTheme: AppTextTheme.textTheme,
       useMaterial3: false,
       colorScheme: ColorScheme(
         brightness: isDark ? Brightness.dark : Brightness.light,

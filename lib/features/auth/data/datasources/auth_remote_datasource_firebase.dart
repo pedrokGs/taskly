@@ -84,9 +84,9 @@ class AuthRemoteDataSourceFirebase implements AuthRemoteDataSource{
 
       final userCredential = await firebaseAuth.signInWithCredential(credential);
       return AuthUserModel.fromCredential(userCredential);
-    } on FirebaseAuthException catch (e) {
+    } on FirebaseAuthException catch (_) {
       rethrow;
-    } on GoogleSignInException catch(e){
+    } on GoogleSignInException catch(_){
       rethrow;
     }
   }

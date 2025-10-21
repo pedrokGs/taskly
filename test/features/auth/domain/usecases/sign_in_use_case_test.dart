@@ -1,7 +1,6 @@
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:taskly/features/auth/data/models/auth_user_model.dart';
 import 'package:taskly/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:taskly/features/auth/domain/entities/auth_user_entity.dart';
 import 'package:taskly/features/auth/domain/usecases/sign_in_use_case.dart';
