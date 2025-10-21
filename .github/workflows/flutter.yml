@@ -27,6 +27,14 @@ jobs:
       - name: Install dependencies
         run: flutter pub get
 
+      - name: Install Firebase CLI
+        run: npm install -g firebase-tools
+
+      - name: Configure Firebase for Flutter
+        run: flutterfire configure --project $FIREBASE_PROJECT_ID --out=lib/core/configs
+        env:
+          FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+
       - name: Run tests
         run: flutter test
 
@@ -34,3 +42,12 @@ jobs:
         if: github.ref == 'refs/heads/main'
         run: flutter build apk --release
 
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pub-cache
+            build
+          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-flutter-
