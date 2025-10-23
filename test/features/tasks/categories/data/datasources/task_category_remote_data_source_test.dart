@@ -17,7 +17,7 @@
 //   MockSpec<QueryDocumentSnapshot>(),
 //   MockSpec<AuthRepository>()
 // ])
-// void main() {
+void main() {
 //   late MockFirebaseFirestore mockFirestore;
 //   late MockAuthRepository mockAuthRepository;
 //   late TaskCategoryRemoteDataSourceFirebase dataSource;
@@ -35,4 +35,4 @@
 //   final mockUser = AuthUserEntity(uid: '1', email: 'test@test.com');
 //
 //   // TODO: Implementar testes unitários usando fake firestore
-// }
+}
