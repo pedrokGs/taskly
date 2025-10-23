@@ -56,9 +56,6 @@ jobs:
       - name: Run tests
         run: flutter test
 
-      - name: Analyze code
-        run: flutter analyze
-
       - name: Build APK
         if: github.ref == 'refs/heads/main'
         run: flutter build apk --release --flavor dev

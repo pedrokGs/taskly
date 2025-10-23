@@ -138,4 +138,32 @@ class MockAuthRepositoryImpl extends _i1.Mock
             ),
           )
           as _i5.Future<_i3.AuthUserEntity>);
+
+  @override
+  _i5.Future<_i3.AuthUserEntity> signInWithGoogle() =>
+      (super.noSuchMethod(
+            Invocation.method(#signInWithGoogle, []),
+            returnValue: _i5.Future<_i3.AuthUserEntity>.value(
+              _FakeAuthUserEntity_1(
+                this,
+                Invocation.method(#signInWithGoogle, []),
+              ),
+            ),
+            returnValueForMissingStub: _i5.Future<_i3.AuthUserEntity>.value(
+              _FakeAuthUserEntity_1(
+                this,
+                Invocation.method(#signInWithGoogle, []),
+              ),
+            ),
+          )
+          as _i5.Future<_i3.AuthUserEntity>);
+
+  @override
+  _i5.Future<void> sendResetPasswordEmail({required String? email}) =>
+      (super.noSuchMethod(
+            Invocation.method(#sendResetPasswordEmail, [], {#email: email}),
+            returnValue: _i5.Future<void>.value(),
+            returnValueForMissingStub: _i5.Future<void>.value(),
+          )
+          as _i5.Future<void>);
 }
