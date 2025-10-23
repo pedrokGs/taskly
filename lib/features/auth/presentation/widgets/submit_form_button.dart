@@ -7,10 +7,10 @@ class SubmitFormButton extends StatefulWidget {
   const SubmitFormButton({super.key, required this.child, required this.onPressed});
 
   @override
-  _SubmitFormButtonState createState() => _SubmitFormButtonState();
+  SubmitFormButtonState createState() => SubmitFormButtonState();
 }
 
-class _SubmitFormButtonState extends State<SubmitFormButton> {
+class SubmitFormButtonState extends State<SubmitFormButton> {
   @override
   Widget build(BuildContext context) {
     return SizedBox(

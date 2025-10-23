@@ -17,7 +17,7 @@ class PasswordResetScreen extends ConsumerWidget {
 
     final emailController = TextEditingController();
 
-    void _showResultModal() {
+    void showResultModal() {
       showModalBottomSheet(
         context: context,
         isDismissible: true,
@@ -68,7 +68,7 @@ class PasswordResetScreen extends ConsumerWidget {
       next,
     ) {
       if(next.success){
-        _showResultModal();
+        showResultModal();
       }
       if (next.errorMessage != null) {
         ScaffoldMessenger.of(
