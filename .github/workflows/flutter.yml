@@ -22,7 +22,21 @@ jobs:
           flutter-version: 3.35.3
 
       - name: Set environment variables
-        run: echo "GOOGLE_SERVER_CLIENT_ID=${{ secrets.GOOGLE_SERVER_CLIENT_ID }}" >> $GITHUB_ENV
+        run: |
+          echo "GOOGLE_SERVER_CLIENT_ID=${GOOGLE_SERVER_CLIENT_ID}" >> $GITHUB_ENV
+        env:
+          GOOGLE_SERVER_CLIENT_ID: ${{ secrets.GOOGLE_SERVER_CLIENT_ID }}
+
+
+      - name: Cache Flutter dependencies
+        uses: actions/cache@v3
+        with:
+          path: |
+            ~/.pub-cache
+            build
+          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
+          restore-keys: |
+            ${{ runner.os }}-flutter-
 
       - name: Install dependencies
         run: flutter pub get
@@ -37,20 +51,15 @@ jobs:
         run: flutterfire configure --project $FIREBASE_PROJECT_ID --out=lib/core/configs
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
+          FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
 
       - name: Run tests
         run: flutter test
+
+      - name: Analyze code
+        run: flutter analyze
 
       - name: Build APK
         if: github.ref == 'refs/heads/main'
         run: flutter build apk --release --flavor dev
 
-      - name: Cache Flutter dependencies
-        uses: actions/cache@v3
-        with:
-          path: |
-            ~/.pub-cache
-            build
-          key: ${{ runner.os }}-flutter-${{ hashFiles('**/pubspec.yaml') }}
-          restore-keys: |
-            ${{ runner.os }}-flutter-
