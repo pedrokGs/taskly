@@ -48,7 +48,7 @@ jobs:
         run: dart pub global activate flutterfire_cli
 
       - name: Configure Firebase for Flutter
-        run: flutterfire configure --project $FIREBASE_PROJECT_ID --out=lib/core/configs
+        run: flutterfire configure --project $FIREBASE_PROJECT_ID --out=lib/core/configs --platforms=android
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
           FIREBASE_PROJECT_ID: ${{ secrets.FIREBASE_PROJECT_ID }}
