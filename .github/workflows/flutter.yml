@@ -40,7 +40,7 @@ jobs:
 
       - name: Build APK
         if: github.ref == 'refs/heads/main'
-        run: flutter build apk --release
+        run: flutter build apk --release --flavor dev
 
       - name: Cache Flutter dependencies
         uses: actions/cache@v3
