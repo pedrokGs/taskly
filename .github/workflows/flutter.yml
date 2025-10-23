@@ -30,6 +30,9 @@ jobs:
       - name: Install Firebase CLI
         run: npm install -g firebase-tools
 
+      - name: Install Flutterfire CLI
+        run: dart pub global activate flutterfire_cli
+
       - name: Configure Firebase for Flutter
         run: flutterfire configure --project $FIREBASE_PROJECT_ID --out=lib/core/configs
         env:
