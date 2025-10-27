@@ -25,98 +25,183 @@ void main() {
   const authUserModel = AuthUserModel(uid: '123', email: 'test@test.com');
 
   group('currentUser', () {
-    test('returns AuthUser.empty when remoteDataSource.currentUser returns null', () {
-      when(mockAuthRemoteDataSourceFirebase.currentUser).thenReturn(null);
+    test(
+      'returns AuthUser.empty when remoteDataSource.currentUser returns null',
+      () {
+        when(mockAuthRemoteDataSourceFirebase.currentUser).thenReturn(null);
 
-      final result = authRepository.currentUser;
+        final result = authRepository.currentUser;
 
-      expect(result, AuthUserEntity.empty);
-    },);
+        expect(result, AuthUserEntity.empty);
+      },
+    );
 
-    test('returns an AuthUserEntity when remoteDataSource.currentUser returns non-null value', () {
-      when(mockAuthRemoteDataSourceFirebase.currentUser).thenReturn(authUserModel);
+    test(
+      'returns an AuthUserEntity when remoteDataSource.currentUser returns non-null value',
+      () {
+        when(
+          mockAuthRemoteDataSourceFirebase.currentUser,
+        ).thenReturn(authUserModel);
 
-      final result = authRepository.currentUser;
+        final result = authRepository.currentUser;
 
-      expect(result, authUserModel.toEntity());
-    },);
-  },);
+        expect(result, authUserModel.toEntity());
+      },
+    );
+  });
 
   group('authUser', () {
-    test('emits AuthUser.empty when remoteDataSource.authUser emits null', () async {
-      when(mockAuthRemoteDataSourceFirebase.authUser).thenAnswer((_) => Stream.value(null));
+    test(
+      'emits AuthUser.empty when remoteDataSource.authUser emits null',
+      () async {
+        when(
+          mockAuthRemoteDataSourceFirebase.authUser,
+        ).thenAnswer((_) => Stream.value(null));
 
-      final result = await authRepository.authUser.first;
+        final result = await authRepository.authUser.first;
 
-      expect(result, AuthUserEntity.empty);
-    },);
+        expect(result, AuthUserEntity.empty);
+      },
+    );
 
-    test('emits an AuthUser when remoteDataSource.authUser emits non-null value', () async {
-      when(mockAuthRemoteDataSourceFirebase.authUser).thenAnswer((_) => Stream.value(authUserModel));
+    test(
+      'emits an AuthUser when remoteDataSource.authUser emits non-null value',
+      () async {
+        when(
+          mockAuthRemoteDataSourceFirebase.authUser,
+        ).thenAnswer((_) => Stream.value(authUserModel));
 
-      final result = await authRepository.authUser.first;
+        final result = await authRepository.authUser.first;
 
-      expect(result, authUserModel.toEntity());
-    });
-  },);
+        expect(result, authUserModel.toEntity());
+      },
+    );
+  });
 
   group('signUp', () {
-    test('calls [signUpWithEmailAndPassword] and [write] with correct arguments', () async {
-      when(
-        mockAuthRemoteDataSourceFirebase.signUpWithEmailAndPassword(email: email, password: password)
-      ).thenAnswer((_) async => authUserModel,);
+    test(
+      'calls [signUpWithEmailAndPassword] and [write] with correct arguments',
+      () async {
+        when(
+          mockAuthRemoteDataSourceFirebase.signUpWithEmailAndPassword(
+            email: email,
+            password: password,
+          ),
+        ).thenAnswer((_) async => authUserModel);
 
-      await authRepository.signUpWithEmailAndPassword(email: email, password: password);
+        await authRepository.signUpWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
 
-      verify(
-        mockAuthRemoteDataSourceFirebase.signUpWithEmailAndPassword(email: email, password: password)
-      ).called(1);
-    },);
+        verify(
+          mockAuthRemoteDataSourceFirebase.signUpWithEmailAndPassword(
+            email: email,
+            password: password,
+          ),
+        ).called(1);
+      },
+    );
 
-    test('returns an AuthUserEntity when remoteDataSource.signUpWithEmailAndPassword returns an AuthUserModel successfully', () async {
-      when(
-        mockAuthRemoteDataSourceFirebase.signUpWithEmailAndPassword(email: email, password: password)
-      ).thenAnswer((_) async => authUserModel,);
+    test(
+      'returns an AuthUserEntity when remoteDataSource.signUpWithEmailAndPassword returns an AuthUserModel successfully',
+      () async {
+        when(
+          mockAuthRemoteDataSourceFirebase.signUpWithEmailAndPassword(
+            email: email,
+            password: password,
+          ),
+        ).thenAnswer((_) async => authUserModel);
 
-      final results = await authRepository.signUpWithEmailAndPassword(email: email, password: password);
+        final results = await authRepository.signUpWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
 
-      expect(results, equals(authUserModel.toEntity()));
-    },);
-  },);
+        expect(results, equals(authUserModel.toEntity()));
+      },
+    );
+  });
 
   group('signIn', () {
     test('calls [signInWithEmailAndPassword] with correct arguments', () async {
       when(
-        mockAuthRemoteDataSourceFirebase.signInWithEmailAndPassword(email: email, password: password)
+        mockAuthRemoteDataSourceFirebase.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        ),
       ).thenAnswer((_) async => authUserModel);
 
-      await authRepository.signInWithEmailAndPassword(email: email, password: password);
+      await authRepository.signInWithEmailAndPassword(
+        email: email,
+        password: password,
+      );
 
-      verify(mockAuthRemoteDataSourceFirebase.signInWithEmailAndPassword(email: email, password: password)).called(1);
-    },);
+      verify(
+        mockAuthRemoteDataSourceFirebase.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        ),
+      ).called(1);
+    });
 
-    test('returns an AuthUserEntity when remoteDataSource.signUpWithEmailAndPassword returns an AuthUserModel successfully', () async {
-      when(
-        mockAuthRemoteDataSourceFirebase.signInWithEmailAndPassword(email: email, password: password)
-      ).thenAnswer((_) async => authUserModel);
+    test(
+      'returns an AuthUserEntity when remoteDataSource.signUpWithEmailAndPassword returns an AuthUserModel successfully',
+      () async {
+        when(
+          mockAuthRemoteDataSourceFirebase.signInWithEmailAndPassword(
+            email: email,
+            password: password,
+          ),
+        ).thenAnswer((_) async => authUserModel);
 
-      final results = await authRepository.signInWithEmailAndPassword(email: email, password: password);
+        final results = await authRepository.signInWithEmailAndPassword(
+          email: email,
+          password: password,
+        );
 
-      expect(results, equals(authUserModel.toEntity()));
-    },);
-  },);
+        expect(results, equals(authUserModel.toEntity()));
+      },
+    );
+  });
 
   group('signOut', () {
     test('calls signOut', () async {
-      when(
-        mockAuthRemoteDataSourceFirebase.signOut()
-      ).thenAnswer((_) async {});
+      when(mockAuthRemoteDataSourceFirebase.signOut()).thenAnswer((_) async {});
 
       await authRepository.signOut();
 
       verify(mockAuthRemoteDataSourceFirebase.signOut()).called(1);
-    },);
+    });
+  });
 
+  group('signInWithGoogle', () {
+    test(
+      'returns an AuthUserEntity when remoteDataSource.signInWithGoogle returns an AuthUserModel successfully',
+      () async {
+        when(
+          mockAuthRemoteDataSourceFirebase.signInWithGoogle(),
+        ).thenAnswer((_) async => authUserModel);
 
-  },);
+        final result = await authRepository.signInWithGoogle();
+
+        expect(result, equals(authUserModel.toEntity()));
+        verify(mockAuthRemoteDataSourceFirebase.signInWithGoogle()).called(1);
+      },
+    );
+
+    test(
+      'throws an Exception when remoteDataSource.signInWithGoogle fails',
+      () async {
+        when(
+          mockAuthRemoteDataSourceFirebase.signInWithGoogle(),
+        ).thenThrow(Exception());
+
+        final call = authRepository.signInWithGoogle;
+
+        expect(call(), throwsA(isA<Exception>()));
+        verify(mockAuthRemoteDataSourceFirebase.signInWithGoogle()).called(1);
+      },
+    );
+  });
 }
