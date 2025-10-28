@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:taskly/core/dependencies_injector/riverpod.dart';
+import 'package:taskly/core/di/theme_providers.dart';
 
 import '../../domain/entities/theme_entity.dart';
 import '../../domain/usecases/get_theme_use_case.dart';

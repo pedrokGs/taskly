@@ -5,7 +5,7 @@ import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:taskly/core/configs/router_config.dart';
-import 'package:taskly/core/dependencies_injector/riverpod.dart';
+import 'core/di/theme_providers.dart';
 import 'features/theme/presentation/providers/theme_notifier.dart';
 import 'package:taskly/common/theme/app_theme.dart';
 

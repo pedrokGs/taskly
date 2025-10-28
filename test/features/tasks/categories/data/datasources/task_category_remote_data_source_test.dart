@@ -3,8 +3,8 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mocktail/mocktail.dart';
 import 'package:taskly/features/auth/domain/entities/auth_user_entity.dart';
 import 'package:taskly/features/auth/domain/repositories/auth_repository.dart';
-import 'package:taskly/features/tasks/data/datasource/task_category_remote_data_source_firebase.dart';
-import 'package:taskly/features/tasks/data/models/task_category_model.dart';
+import 'package:taskly/features/tasks/data/datasource/category/task_category_remote_data_source_firebase.dart';
+import 'package:taskly/features/tasks/data/models/category/task_category_model.dart';
 import 'package:taskly/features/tasks/domain/exceptions/generic/data_source_exception.dart';
 import 'package:taskly/features/tasks/domain/exceptions/generic/unknown_data_source_exception.dart';
 

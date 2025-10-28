@@ -1,6 +1,6 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:taskly/features/tasks/data/models/icon_data_model.dart';
-import 'package:taskly/features/tasks/data/models/task_category_model.dart';
+import 'package:taskly/features/tasks/data/models/category/task_category_model.dart';
 import 'package:taskly/features/tasks/domain/enums/task_difficulty_enum.dart';
 import 'package:taskly/features/tasks/domain/enums/task_type_enum.dart';
 

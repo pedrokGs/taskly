@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:taskly/core/dependencies_injector/riverpod.dart';
+import 'package:taskly/core/di/auth_providers.dart';
 import 'package:taskly/features/auth/domain/exceptions/invalid_credentials_exception.dart';
 import 'package:taskly/features/auth/domain/exceptions/sign_in_with_google_cancelled_exception.dart';
 import 'package:taskly/features/auth/domain/exceptions/user_not_found_exception.dart';
@@ -56,5 +56,3 @@ class SignInStateNotifier extends Notifier<SignInState>{
     }
   }
 }
-
-final signInNotifierProvider = NotifierProvider<SignInStateNotifier, SignInState>(() => SignInStateNotifier(),);

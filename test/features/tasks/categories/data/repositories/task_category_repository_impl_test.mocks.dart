@@ -6,9 +6,9 @@
 import 'dart:async' as _i4;
 
 import 'package:mockito/mockito.dart' as _i1;
-import 'package:taskly/features/tasks/data/datasource/task_category_remote_datasource.dart'
+import 'package:taskly/features/tasks/data/datasource/category/task_category_remote_datasource.dart'
     as _i3;
-import 'package:taskly/features/tasks/data/models/task_category_model.dart'
+import 'package:taskly/features/tasks/data/models/category/task_category_model.dart'
     as _i2;
 
 // ignore_for_file: type=lint

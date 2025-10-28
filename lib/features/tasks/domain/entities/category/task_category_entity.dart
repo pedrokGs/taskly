@@ -1,6 +1,6 @@
 import 'package:equatable/equatable.dart';
 
-import 'icon_data_entity.dart';
+import '../icon_data_entity.dart';
 
 class TaskCategoryEntity extends Equatable {
   final String id;

@@ -146,7 +146,7 @@ void main() {
     });
 
     test(
-      'returns an AuthUserEntity when remoteDataSource.signUpWithEmailAndPassword returns an AuthUserModel successfully',
+      'returns an AuthUserEntity when remoteDataSource.signInWithEmailAndPassword returns an AuthUserModel successfully',
       () async {
         when(
           mockAuthRemoteDataSourceFirebase.signInWithEmailAndPassword(

@@ -1,8 +1,8 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:taskly/features/tasks/domain/entities/task_category_entity.dart';
+import 'package:taskly/features/tasks/domain/entities/category/task_category_entity.dart';
 
-import '../../domain/entities/icon_data_entity.dart';
-import 'icon_data_model.dart';
+import '../../../domain/entities/icon_data_entity.dart';
+import '../icon_data_model.dart';
 
 class TaskCategoryModel {
   String? id;

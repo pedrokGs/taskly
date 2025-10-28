@@ -1,4 +1,4 @@
-import 'package:taskly/features/tasks/data/models/task_category_model.dart';
+import 'package:taskly/features/tasks/data/models/category/task_category_model.dart';
 
 abstract class TaskCategoryRemoteDataSource{
   Future<List<TaskCategoryModel>> getTaskCategories();

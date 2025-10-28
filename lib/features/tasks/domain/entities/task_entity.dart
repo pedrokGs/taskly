@@ -1,5 +1,5 @@
 import 'package:taskly/features/tasks/domain/entities/icon_data_entity.dart';
-import 'package:taskly/features/tasks/domain/entities/task_category_entity.dart';
+import 'package:taskly/features/tasks/domain/entities/category/task_category_entity.dart';
 
 import '../enums/task_difficulty_enum.dart';
 import '../enums/task_type_enum.dart';

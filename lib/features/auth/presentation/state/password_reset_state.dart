@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:taskly/core/dependencies_injector/riverpod.dart';
+import 'package:taskly/core/di/auth_providers.dart';
 import 'package:taskly/features/auth/domain/usecases/reset_password_use_case.dart';
 
 class PasswordResetState{
@@ -29,7 +29,4 @@ class PasswordResetStateNotifier extends Notifier<PasswordResetState>{
       state = PasswordResetState(isLoading: false, errorMessage: "Erro deconhecido: $e");
     }
   }
-
 }
-
-final passwordResetNotifierProvider = NotifierProvider<PasswordResetStateNotifier, PasswordResetState>(() => PasswordResetStateNotifier(),);

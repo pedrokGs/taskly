@@ -1,9 +1,9 @@
-import 'package:taskly/features/tasks/data/datasource/task_category_remote_datasource.dart';
-import 'package:taskly/features/tasks/data/models/task_category_model.dart';
-import 'package:taskly/features/tasks/domain/entities/task_category_entity.dart';
+import 'package:taskly/features/tasks/data/datasource/category/task_category_remote_datasource.dart';
+import 'package:taskly/features/tasks/data/models/category/task_category_model.dart';
+import 'package:taskly/features/tasks/domain/entities/category/task_category_entity.dart';
 import 'package:taskly/features/tasks/domain/exceptions/categories/task_category_not_found_exception.dart';
 import 'package:taskly/features/tasks/domain/exceptions/generic/id_does_not_exist_exception.dart';
-import 'package:taskly/features/tasks/domain/repositories/task_category_repository.dart';
+import 'package:taskly/features/tasks/domain/repositories/category/task_category_repository.dart';
 
 class TaskCategoryRepositoryImpl implements TaskCategoryRepository {
   final TaskCategoryRemoteDataSource remoteDataSource;

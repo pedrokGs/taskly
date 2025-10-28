@@ -2,17 +2,17 @@ import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
-import 'package:taskly/features/tasks/data/datasource/task_category_remote_datasource.dart';
+import 'package:taskly/features/tasks/data/datasource/category/task_category_remote_datasource.dart';
 import 'package:taskly/features/tasks/data/models/icon_data_model.dart';
-import 'package:taskly/features/tasks/data/models/task_category_model.dart';
-import 'package:taskly/features/tasks/data/repositories/task_category_repository_impl.dart';
-import 'package:taskly/features/tasks/domain/entities/task_category_entity.dart';
+import 'package:taskly/features/tasks/data/models/category/task_category_model.dart';
+import 'package:taskly/features/tasks/data/repositories/category/task_category_repository_impl.dart';
+import 'package:taskly/features/tasks/domain/entities/category/task_category_entity.dart';
 import 'package:taskly/features/tasks/domain/exceptions/categories/task_category_already_exists_exception.dart';
 import 'package:taskly/features/tasks/domain/exceptions/categories/task_category_cannot_be_deleted_exception.dart';
 import 'package:taskly/features/tasks/domain/exceptions/categories/task_category_not_found_exception.dart';
 import 'package:taskly/features/tasks/domain/exceptions/generic/data_source_exception.dart';
 import 'package:taskly/features/tasks/domain/exceptions/generic/unknown_data_source_exception.dart';
-import 'package:taskly/features/tasks/domain/repositories/task_category_repository.dart';
+import 'package:taskly/features/tasks/domain/repositories/category/task_category_repository.dart';
 
 import 'task_category_repository_impl_test.mocks.dart';
 

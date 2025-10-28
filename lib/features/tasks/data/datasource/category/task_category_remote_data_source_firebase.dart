@@ -1,7 +1,7 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:taskly/features/auth/domain/repositories/auth_repository.dart';
-import 'package:taskly/features/tasks/data/datasource/task_category_remote_datasource.dart';
-import 'package:taskly/features/tasks/data/models/task_category_model.dart';
+import 'package:taskly/features/tasks/data/datasource/category/task_category_remote_datasource.dart';
+import 'package:taskly/features/tasks/data/models/category/task_category_model.dart';
 import 'package:taskly/features/tasks/domain/exceptions/generic/data_source_exception.dart';
 import 'package:taskly/features/tasks/domain/exceptions/generic/unknown_data_source_exception.dart';
 

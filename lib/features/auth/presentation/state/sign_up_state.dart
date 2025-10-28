@@ -1,5 +1,5 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:taskly/core/dependencies_injector/riverpod.dart';
+import 'package:taskly/core/di/auth_providers.dart';
 import 'package:taskly/features/auth/domain/exceptions/email_already_in_use_exception.dart';
 import 'package:taskly/features/auth/domain/exceptions/invalid_credentials_exception.dart';
 import 'package:taskly/features/auth/domain/usecases/sign_in_with_google_use_case.dart';
@@ -54,5 +54,3 @@ class SignUpStateNotifier extends Notifier<SignUpState>{
     }
   }
 }
-
-final signUpNotifierProvider = NotifierProvider<SignUpStateNotifier, SignUpState>(() => SignUpStateNotifier(),);

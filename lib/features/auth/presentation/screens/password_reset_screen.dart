@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:go_router/go_router.dart';
+import 'package:taskly/core/di/auth_providers.dart';
 import 'package:taskly/features/auth/presentation/state/password_reset_state.dart';
 import 'package:taskly/features/auth/presentation/widgets/custom_form_text_field.dart';
 import 'package:taskly/features/auth/presentation/widgets/submit_form_button.dart';
@@ -127,5 +128,4 @@ class PasswordResetScreen extends ConsumerWidget {
       ),
     );
   }
-
 }
