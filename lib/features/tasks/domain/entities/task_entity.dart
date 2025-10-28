@@ -1,4 +1,3 @@
-import 'package:taskly/features/tasks/domain/entities/icon_data_entity.dart';
 import 'package:taskly/features/tasks/domain/entities/category/task_category_entity.dart';
 
 import '../enums/task_difficulty_enum.dart';
@@ -11,7 +10,7 @@ class TaskEntity {
   TaskDifficulty taskDifficulty;
   TaskType taskType;
   TaskCategoryEntity? category;
-  IconDataEntity? iconDataEntity;
+  String icon;
   DateTime createdAt;
   DateTime? completedAt;
   DateTime? dueDate;
@@ -23,7 +22,7 @@ class TaskEntity {
     required this.taskDifficulty,
     required this.taskType,
     this.category,
-    this.iconDataEntity,
+    required this.icon,
     required this.createdAt,
     this.completedAt,
     this.dueDate,

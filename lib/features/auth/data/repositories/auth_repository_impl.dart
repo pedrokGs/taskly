@@ -5,7 +5,6 @@ import 'package:taskly/features/auth/domain/exceptions/email_already_in_use_exce
 import 'package:taskly/features/auth/domain/exceptions/invalid_credentials_exception.dart';
 import 'package:taskly/features/auth/domain/exceptions/sign_in_with_google_cancelled_exception.dart';
 import 'package:taskly/features/auth/domain/repositories/auth_repository.dart';
-
 import '../../domain/exceptions/auth_exception.dart';
 import '../../domain/exceptions/invalid_email_exception.dart';
 import '../../domain/exceptions/logout_exception.dart';

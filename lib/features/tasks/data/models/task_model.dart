@@ -1,5 +1,4 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
-import 'package:taskly/features/tasks/data/models/icon_data_model.dart';
 import 'package:taskly/features/tasks/data/models/category/task_category_model.dart';
 import 'package:taskly/features/tasks/domain/enums/task_difficulty_enum.dart';
 import 'package:taskly/features/tasks/domain/enums/task_type_enum.dart';
@@ -11,7 +10,7 @@ class TaskModel {
   TaskDifficulty taskDifficulty;
   TaskType taskType;
   TaskCategoryModel? category;
-  IconDataModel? iconDataModel;
+  String icon;
   Timestamp? createdAt;
   Timestamp? completedAt;
   Timestamp? dueDate;
@@ -23,7 +22,7 @@ class TaskModel {
     required this.taskDifficulty,
     required this.taskType,
     this.category,
-    this.iconDataModel,
+    required this.icon,
     Timestamp? createdAt,
     this.completedAt,
     this.dueDate,
@@ -39,9 +38,7 @@ class TaskModel {
       category: map['category'] != null
           ? TaskCategoryModel.fromMap(map['category'])
           : null,
-      iconDataModel: map['iconDataModel'] != null
-          ? IconDataModel.fromMap(map['iconDataModel'])
-          : null,
+      icon: map['icon'],
       createdAt: map['createdAt'],
       completedAt: map['completedAt'],
       dueDate: map['dueDate'],
@@ -55,7 +52,7 @@ class TaskModel {
       'taskDifficulty': taskDifficulty.index,
       'taskType': taskType.index,
       'category': category?.toMap(),
-      'iconDataModel': iconDataModel?.toMap(),
+      'iconDataModel': icon,
       'createdAt': createdAt,
       'completedAt': completedAt,
       'dueDate': dueDate,
@@ -69,7 +66,7 @@ class TaskModel {
     TaskDifficulty? taskDifficulty,
     TaskType? taskType,
     TaskCategoryModel? category,
-    IconDataModel? iconDataModel,
+    String? icon,
     Timestamp? createdAt,
     Timestamp? completedAt,
     Timestamp? dueDate,
@@ -81,7 +78,7 @@ class TaskModel {
       taskDifficulty: taskDifficulty ?? this.taskDifficulty,
       taskType: taskType ?? this.taskType,
       category: category ?? this.category,
-      iconDataModel: iconDataModel ?? this.iconDataModel,
+      icon: icon ?? this.icon,
       createdAt: createdAt ?? this.createdAt,
       completedAt: completedAt ?? this.completedAt,
       dueDate: dueDate ?? this.dueDate,

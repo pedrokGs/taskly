@@ -1,14 +1,11 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:taskly/features/tasks/domain/entities/category/task_category_entity.dart';
 
-import '../../../domain/entities/icon_data_entity.dart';
-import '../icon_data_model.dart';
-
 class TaskCategoryModel {
   String? id;
   String name;
   bool isDefault;
-  IconDataModel? iconDataModel;
+  String icon;
   int? color;
   Timestamp? createdAt;
 
@@ -16,7 +13,7 @@ class TaskCategoryModel {
     this.id,
     required this.name,
     required this.isDefault,
-    this.iconDataModel,
+    required this.icon,
     this.color,
     Timestamp? createdAt,
   }) : createdAt = createdAt ?? Timestamp.now();
@@ -28,9 +25,7 @@ class TaskCategoryModel {
       isDefault: map['isDefault'] ?? false,
       color: map['color'],
       createdAt: map['createdAt'],
-      iconDataModel: map['iconDataModel'] != null
-          ? IconDataModel.fromMap(map['iconDataModel'])
-          : null,
+      icon: map['iconDataModel'],
     );
   }
 
@@ -41,14 +36,7 @@ class TaskCategoryModel {
       isDefault: entity.isDefault,
       color: entity.color,
       createdAt: Timestamp.fromDate(entity.createdAt),
-      iconDataModel: entity.iconDataEntity == null
-          ? null
-          : IconDataModel(
-              iconName: entity.iconDataEntity!.iconName,
-              iconCodePoint: entity.iconDataEntity!.iconCodePoint,
-              iconFontFamily: entity.iconDataEntity!.iconFontFamily,
-              iconFontPackage: entity.iconDataEntity!.iconFontPackage,
-            ),
+      icon: entity.icon
     );
   }
 
@@ -58,7 +46,7 @@ class TaskCategoryModel {
       'isDefault': isDefault,
       'color': color,
       'createdAt': createdAt,
-      'iconDataModel': iconDataModel?.toMap(),
+      'iconDataModel': icon,
     };
   }
 
@@ -66,7 +54,7 @@ class TaskCategoryModel {
     String? id,
     String? name,
     bool? isDefault,
-    IconDataModel? iconDataModel,
+    String? icon,
     int? color,
     Timestamp? createdAt,
   }) {
@@ -74,7 +62,7 @@ class TaskCategoryModel {
       id: id ?? this.id,
       name: name ?? this.name,
       isDefault: isDefault ?? this.isDefault,
-      iconDataModel: iconDataModel ?? this.iconDataModel,
+      icon: icon ?? this.icon,
       color: color ?? this.color,
       createdAt: createdAt ?? this.createdAt,
     );
@@ -91,14 +79,7 @@ class TaskCategoryModel {
       isDefault: isDefault,
       color: color ?? 0xFF000000,
       createdAt: createdAt?.toDate() ?? DateTime.now(),
-      iconDataEntity: iconDataModel == null
-          ? null
-          : IconDataEntity(
-        iconName: iconDataModel!.iconName,
-        iconCodePoint: iconDataModel!.iconCodePoint,
-        iconFontFamily: iconDataModel!.iconFontFamily,
-        iconFontPackage: iconDataModel!.iconFontPackage,
-      ),
+      icon: icon,
     );
   }
 }

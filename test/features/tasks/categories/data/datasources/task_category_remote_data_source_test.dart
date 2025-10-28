@@ -46,6 +46,7 @@ void main() {
     id: null,
     name: 'Test Category',
     isDefault: false,
+    icon: '',
   );
 
   group('createCategory', () {

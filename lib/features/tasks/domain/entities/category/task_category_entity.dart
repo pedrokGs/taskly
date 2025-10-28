@@ -1,12 +1,10 @@
 import 'package:equatable/equatable.dart';
 
-import '../icon_data_entity.dart';
-
 class TaskCategoryEntity extends Equatable {
   final String id;
   final String name;
   final bool isDefault;
-  final IconDataEntity? iconDataEntity;
+  final String icon;
   final int color;
   final DateTime createdAt;
 
@@ -14,7 +12,7 @@ class TaskCategoryEntity extends Equatable {
     required this.id,
     required this.name,
     required this.isDefault,
-    this.iconDataEntity,
+    required this.icon,
     required this.color,
     required this.createdAt,
   });
@@ -23,6 +21,7 @@ class TaskCategoryEntity extends Equatable {
     id: '',
     name: '',
     isDefault: false,
+    icon: '',
     color: 0,
     createdAt: DateTime.now(),
   );
@@ -33,7 +32,7 @@ class TaskCategoryEntity extends Equatable {
     String? id,
     String? name,
     bool? isDefault,
-    IconDataEntity? iconDataEntity,
+    String? icon,
     int? color,
     DateTime? createdAt,
   }) {
@@ -41,6 +40,7 @@ class TaskCategoryEntity extends Equatable {
       id: id ?? this.id,
       name: name ?? this.name,
       isDefault: isDefault ?? this.isDefault,
+      icon: icon ?? this.icon,
       color: color ?? this.color,
       createdAt: createdAt ?? this.createdAt,
     );
@@ -51,7 +51,7 @@ class TaskCategoryEntity extends Equatable {
     id,
     name,
     isDefault,
-    iconDataEntity,
+    icon,
     color,
     createdAt,
   ];

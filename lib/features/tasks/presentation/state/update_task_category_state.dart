@@ -27,7 +27,7 @@ class UpdateTaskCategoryStateNotifier extends Notifier<UpdateTaskCategoryState>{
       final result = await updateTaskCategoryUseCase.call(taskCategoryEntity);
       state = UpdateTaskCategoryState(success: true, isLoading: false);
       return result;
-    } on TaskNotFoundException catch(e) {
+    } on TaskNotFoundException {
       state = UpdateTaskCategoryState(errorMessage: 'Categoria não encontrada', success: false, isLoading: false);
       return null;
     } catch(e){

@@ -3,7 +3,6 @@ import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
 import 'package:taskly/features/tasks/data/datasource/category/task_category_remote_datasource.dart';
-import 'package:taskly/features/tasks/data/models/icon_data_model.dart';
 import 'package:taskly/features/tasks/data/models/category/task_category_model.dart';
 import 'package:taskly/features/tasks/data/repositories/category/task_category_repository_impl.dart';
 import 'package:taskly/features/tasks/domain/entities/category/task_category_entity.dart';
@@ -34,12 +33,7 @@ void main() {
     isDefault: false,
     color: 0xFFFFFFFF,
     createdAt: Timestamp.fromDate(DateTime.utc(2000)),
-    iconDataModel: IconDataModel(
-      iconName: 'teste',
-      iconCodePoint: 100,
-      iconFontFamily: 'teste',
-      iconFontPackage: 'teste',
-    ),
+    icon: '',
   );
 
   final taskCategoryModel1 = TaskCategoryModel(
@@ -48,12 +42,7 @@ void main() {
     isDefault: true,
     color: 0xFF0000FF, // Azul
     createdAt: Timestamp.fromDate(DateTime.utc(2023, 1, 1)),
-    iconDataModel: IconDataModel(
-      iconName: 'work_icon',
-      iconCodePoint: 0xe001,
-      iconFontFamily: 'MaterialIcons',
-      iconFontPackage: 'material_icons',
-    ),
+    icon: '',
   );
 
   final taskCategoryModel2 = TaskCategoryModel(
@@ -62,12 +51,7 @@ void main() {
     isDefault: false,
     color: 0xFFFF0000, // Vermelho
     createdAt: Timestamp.fromDate(DateTime.utc(2023, 2, 1)),
-    iconDataModel: IconDataModel(
-      iconName: 'personal_icon',
-      iconCodePoint: 0xe002,
-      iconFontFamily: 'MaterialIcons',
-      iconFontPackage: 'material_icons',
-    ),
+    icon: '',
   );
 
   final taskCategoryModel3 = TaskCategoryModel(
@@ -76,12 +60,7 @@ void main() {
     isDefault: false,
     color: 0xFF00FF00, // Verde
     createdAt: Timestamp.fromDate(DateTime.utc(2023, 3, 1)),
-    iconDataModel: IconDataModel(
-      iconName: 'shopping_icon',
-      iconCodePoint: 0xe003,
-      iconFontFamily: 'MaterialIcons',
-      iconFontPackage: 'material_icons',
-    ),
+    icon: '',
   );
 
   group('addTaskCategory', () {

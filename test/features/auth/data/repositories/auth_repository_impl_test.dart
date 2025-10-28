@@ -1,22 +1,28 @@
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
 import 'package:mockito/mockito.dart';
+import 'package:taskly/core/di/auth_providers.dart';
 import 'package:taskly/features/auth/data/datasources/auth_remote_datasource_firebase.dart';
 import 'package:taskly/features/auth/data/models/auth_user_model.dart';
-import 'package:taskly/features/auth/data/repositories/auth_repository_impl.dart';
 import 'package:taskly/features/auth/domain/entities/auth_user_entity.dart';
 
 import 'auth_repository_impl_test.mocks.dart';
 
 @GenerateNiceMocks([MockSpec<AuthRemoteDataSourceFirebase>()])
 void main() {
+  late ProviderContainer container;
   late MockAuthRemoteDataSourceFirebase mockAuthRemoteDataSourceFirebase;
-  late AuthRepositoryImpl authRepository;
 
   setUp(() {
     mockAuthRemoteDataSourceFirebase = MockAuthRemoteDataSourceFirebase();
-    authRepository = AuthRepositoryImpl(
-      remoteDataSource: mockAuthRemoteDataSourceFirebase,
+
+    container = ProviderContainer(
+      overrides: [
+        authRemoteDataSourceProvider.overrideWithValue(
+          mockAuthRemoteDataSourceFirebase,
+        ),
+      ],
     );
   });
 
@@ -30,7 +36,9 @@ void main() {
       () {
         when(mockAuthRemoteDataSourceFirebase.currentUser).thenReturn(null);
 
-        final result = authRepository.currentUser;
+        final repository = container.read(authRepositoryProvider);
+
+        final result = repository.currentUser;
 
         expect(result, AuthUserEntity.empty);
       },
@@ -43,7 +51,9 @@ void main() {
           mockAuthRemoteDataSourceFirebase.currentUser,
         ).thenReturn(authUserModel);
 
-        final result = authRepository.currentUser;
+        final repository = container.read(authRepositoryProvider);
+
+        final result = repository.currentUser;
 
         expect(result, authUserModel.toEntity());
       },
@@ -58,7 +68,9 @@ void main() {
           mockAuthRemoteDataSourceFirebase.authUser,
         ).thenAnswer((_) => Stream.value(null));
 
-        final result = await authRepository.authUser.first;
+        final repository = container.read(authRepositoryProvider);
+
+        final result = await repository.authUser.first;
 
         expect(result, AuthUserEntity.empty);
       },
@@ -71,7 +83,9 @@ void main() {
           mockAuthRemoteDataSourceFirebase.authUser,
         ).thenAnswer((_) => Stream.value(authUserModel));
 
-        final result = await authRepository.authUser.first;
+        final repository = container.read(authRepositoryProvider);
+
+        final result = await repository.authUser.first;
 
         expect(result, authUserModel.toEntity());
       },
@@ -89,7 +103,9 @@ void main() {
           ),
         ).thenAnswer((_) async => authUserModel);
 
-        await authRepository.signUpWithEmailAndPassword(
+        final repository = container.read(authRepositoryProvider);
+
+        await repository.signUpWithEmailAndPassword(
           email: email,
           password: password,
         );
@@ -113,7 +129,9 @@ void main() {
           ),
         ).thenAnswer((_) async => authUserModel);
 
-        final results = await authRepository.signUpWithEmailAndPassword(
+        final repository = container.read(authRepositoryProvider);
+
+        final results = await repository.signUpWithEmailAndPassword(
           email: email,
           password: password,
         );
@@ -132,7 +150,9 @@ void main() {
         ),
       ).thenAnswer((_) async => authUserModel);
 
-      await authRepository.signInWithEmailAndPassword(
+      final repository = container.read(authRepositoryProvider);
+
+      await repository.signInWithEmailAndPassword(
         email: email,
         password: password,
       );
@@ -155,7 +175,9 @@ void main() {
           ),
         ).thenAnswer((_) async => authUserModel);
 
-        final results = await authRepository.signInWithEmailAndPassword(
+        final repository = container.read(authRepositoryProvider);
+
+        final results = await repository.signInWithEmailAndPassword(
           email: email,
           password: password,
         );
@@ -169,7 +191,9 @@ void main() {
     test('calls signOut', () async {
       when(mockAuthRemoteDataSourceFirebase.signOut()).thenAnswer((_) async {});
 
-      await authRepository.signOut();
+      final repository = container.read(authRepositoryProvider);
+
+      await repository.signOut();
 
       verify(mockAuthRemoteDataSourceFirebase.signOut()).called(1);
     });
@@ -183,7 +207,8 @@ void main() {
           mockAuthRemoteDataSourceFirebase.signInWithGoogle(),
         ).thenAnswer((_) async => authUserModel);
 
-        final result = await authRepository.signInWithGoogle();
+        final repository = container.read(authRepositoryProvider);
+        final result = await repository.signInWithGoogle();
 
         expect(result, equals(authUserModel.toEntity()));
         verify(mockAuthRemoteDataSourceFirebase.signInWithGoogle()).called(1);
@@ -197,7 +222,9 @@ void main() {
           mockAuthRemoteDataSourceFirebase.signInWithGoogle(),
         ).thenThrow(Exception());
 
-        final call = authRepository.signInWithGoogle;
+        final repository = container.read(authRepositoryProvider);
+
+        final call = repository.signInWithGoogle;
 
         expect(call(), throwsA(isA<Exception>()));
         verify(mockAuthRemoteDataSourceFirebase.signInWithGoogle()).called(1);
